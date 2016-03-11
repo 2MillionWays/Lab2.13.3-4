@@ -1,9 +1,10 @@
 package com.brainacad.oop.testshapes;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidShapeStringException {
 
         Circle testCircle = new Circle("Blue", 10);
 
@@ -73,6 +74,39 @@ public class Main {
         Arrays.sort(arr2);
         for (Rectangle arrayElement : arr2){
             arrayElement.draw();
+        }
+        System.out.println("-------------------------------------");
+
+        //Lab 2.10.4
+
+        try {
+            Shape.parseShape("Rectangle:RED:10,20");
+            Shape.parseShape("Triangle:BLUE:3,4,5");
+            Shape.parseShape("Circle:GREY:10");
+            System.out.println("All correct!");
+        } catch (InvalidShapeStringException e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("-------------------------------------");
+
+        //added loop to repeat operation "n" times
+        int n = 5;
+
+        for(int i = 1; i<=n;i++) {
+            System.out.print("Enter Shape: ");
+            Scanner sc = new Scanner(System.in);
+            String input = sc.nextLine();
+            try {
+                Shape.parseShape(input);
+                System.out.println("All correct!");
+            } catch (InvalidShapeStringException e) {
+                System.out.println(e.getMessage());
+            }
+            if(i < n){
+                System.out.println("Try again!("+(n-i)+" attempts remaining)");
+            } else {
+                System.out.println("Game Over!");
+            }
         }
     }
 }
