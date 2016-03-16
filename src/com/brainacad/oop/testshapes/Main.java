@@ -98,7 +98,6 @@ public class Main {
             String input = sc.nextLine();
             try {
                 Shape.parseShape(input);
-                System.out.println("All correct!");
             } catch (InvalidShapeStringException e) {
                 System.out.println(e.getMessage());
             }

@@ -23,51 +23,24 @@ public abstract class Shape implements Drawable {
 
     public abstract double calcArea();
 
-    //Lab 2.10.4
+    /*Lab 2.10.4 and 2.13.3 - butthurt - changing course program during ongoing classes ain't good,
+    * need to change labs' order according to new program. In this case it would have made my labs
+    * progress much easier, but whatever... =) */
 
-    public static Shape parseShape(String str) throws InvalidShapeStringException{
+    public static Shape parseShape(String str) throws InvalidShapeStringException {
 
         StringTokenizer stringTokenizer = new StringTokenizer(str, ":, ");
         String type = stringTokenizer.nextToken();
 
-        if (type.equals("Rectangle")){
-            String conditionRec = "(Rectangle):[A-Z]+:\\d+,\\d+";
-            Pattern patternOne = Pattern.compile(conditionRec);
-            Matcher matcherOne = patternOne.matcher(str);
+        //change to if...if...if to switch/case as recommended
 
-            if (!matcherOne.matches())
-                throw new InvalidShapeStringException("Invalid input");
-
-            String color = stringTokenizer.nextToken();
-            double width = Double.parseDouble(stringTokenizer.nextToken());
-            double height = Double.parseDouble(stringTokenizer.nextToken());
-            return new Rectangle(color,width,height);
-        }
-
-        if (type.equals("Triangle")){
-            String conditionTri = "(Triangle):[A-Z]+:\\d+,\\d+,\\d+";
-            Pattern patternTwo = Pattern.compile(conditionTri);
-            Matcher matcherTwo = patternTwo.matcher(str);
-
-            if (!matcherTwo.matches())
-                throw new InvalidShapeStringException("Invalid input");
-
-            String color = stringTokenizer.nextToken();
-            double a = Double.parseDouble(stringTokenizer.nextToken());
-            double b = Double.parseDouble(stringTokenizer.nextToken());
-            double c = Double.parseDouble(stringTokenizer.nextToken());
-            return new Triangle(color,a,b,c);
-        } else {
-            String conditionCirc = "(Circle):[A-Z]+:\\d+";
-            Pattern patternThree = Pattern.compile(conditionCirc);
-            Matcher matcherThree = patternThree.matcher(str);
-
-            if (!matcherThree.matches())
-                throw new InvalidShapeStringException("Invalid input");
-
-            String color = stringTokenizer.nextToken();
-            double radius = Double.parseDouble(stringTokenizer.nextToken());
-            return new Circle(color,radius);
+        switch (type) {
+            case "Rectangle": return Rectangle.praseRectangle(str);
+            case "Triangle": return Triangle.parseTriangle(str);
+            case "Circle": return Circle.praseCircle(str);
+            default:
+                System.out.println("Invalid input!");
+                return null;
         }
     }
 }

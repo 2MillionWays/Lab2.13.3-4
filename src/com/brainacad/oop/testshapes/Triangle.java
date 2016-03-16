@@ -1,5 +1,9 @@
 package com.brainacad.oop.testshapes;
 
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Triangle extends Shape implements Comparable {
     private double a;
     private double b;
@@ -36,5 +40,26 @@ public class Triangle extends Shape implements Comparable {
         if(this.calcArea()>triangle.calcArea())return 1;
         if(this.calcArea()<triangle.calcArea())return -1;
         return 0;
+    }
+
+    //Lab 2.13.4
+
+    public static Triangle parseTriangle(String str) throws InvalidShapeStringException{
+
+        StringTokenizer stringTokenizer = new StringTokenizer(str, ":, ");
+        String type = stringTokenizer.nextToken();
+
+        String conditionTri = "(Triangle):[A-Z]+:\\d+,\\d+,\\d+";
+        Pattern patternTwo = Pattern.compile(conditionTri);
+        Matcher matcherTwo = patternTwo.matcher(str);
+
+        if (!matcherTwo.matches())
+            throw new InvalidShapeStringException("Invalid input");
+
+        String color1 = stringTokenizer.nextToken();
+        double a = Double.parseDouble(stringTokenizer.nextToken());
+        double b = Double.parseDouble(stringTokenizer.nextToken());
+        double c = Double.parseDouble(stringTokenizer.nextToken());
+        return new Triangle(color1, a, b, c);
     }
 }
