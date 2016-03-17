@@ -89,23 +89,21 @@ public class Main {
         }
         System.out.println("-------------------------------------");
 
-        //added loop to repeat operation "n" times
-        int n = 5;
+        //Lab 2.13.5
 
-        for(int i = 1; i<=n;i++) {
-            System.out.print("Enter Shape: ");
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        int input = Integer.parseInt(scanner.nextLine());
+        Shape[] shapes = new Shape[input];
+        for(int i = 0; i < input; i++){
+            String shape = scanner.nextLine();
             try {
-                Shape.parseShape(input);
-            } catch (InvalidShapeStringException e) {
+                shapes[i] = Shape.parseShape(shape);
+            } catch (InvalidShapeStringException e){
                 System.out.println(e.getMessage());
             }
-            if(i < n){
-                System.out.println("Try again!("+(n-i)+" attempts remaining)");
-            } else {
-                System.out.println("Game Over!");
-            }
+        }
+        for (Shape shape : shapes){
+            shape.draw();
         }
     }
 }
